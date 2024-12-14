@@ -26,7 +26,7 @@ def hello_world():
             desc = request.form.get('desc', '').strip()
 
             # Validate fields
-            if not title or not desc:
+            if not title:
                 error = "Both Title and Description are required."
                 allTodo = Todo.query.all()  # Fetch todos for re-rendering
                 return render_template('index.html', allTodo=allTodo, error=error)
@@ -56,11 +56,12 @@ def update(sno):
     return 'this is products page'
 
 
-@app.route('/delete')
-def delete():
-    allTodo = Todo.query.all()
-    print(allTodo)
-    return 'this is products page'
+@app.route('/delete/<int:sno>')
+def delete(sno):
+    todo= Todo.query.filter_by(sno=sno).first()
+    db.session.delete(todo)
+    db.session.commit()
+    return redirect(url_for('hello_world'))
 
 
 

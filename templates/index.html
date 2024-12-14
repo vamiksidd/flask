@@ -63,6 +63,11 @@
 
       <button type="submit" class="btn btn-dark">Submit</button>
     </form>
+    {% if allTodo|length == 0 %}
+    <div class="alert alert-dark text-center container my-5" role="alert">
+      No Todos available—check back later!
+    </div>
+    {% else %}
     <table class="table my-5 container">
       <h2 class="container my-5">Todos</h2>
       <thead>
@@ -77,26 +82,26 @@
       <tbody>
         {% for todo in allTodo %}
         <tr>
-          <th scope="row">{{loop.index}}</th>
-          <td>{{todo.title}}</td>
-          <td>{{todo.desc}}</td>
-          <td>{{todo.date}}</td>
+          <th scope="row">{{ loop.index }}</th>
+          <td>{{ todo.title }}</td>
+          <td>{{ todo.desc }}</td>
+          <td>{{ todo.date }}</td>
           <td>
             <a
-              href="/update/{{todo.sno}}"
+              href="/update/{{ todo.sno }}"
               type="button"
               class="btn btn-outline-primary btn-sm mx-2"
-              >update</a
+              >Update</a
             >
             <a
-              href="/delete/{{todo.sno}}"
+              href="/delete/{{ todo.sno }}"
               type="button"
               class="btn btn-outline-dark btn-sm"
-              >delete</a
+              >Delete</a
             >
           </td>
         </tr>
-        {% endfor %}
+        {% endfor %} {% endif %}
       </tbody>
     </table>
   </body>
